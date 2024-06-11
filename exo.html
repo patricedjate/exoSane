@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+      /*  do{
+            var nom = prompt("veuillez saisir votre nom");
+        }while(nom != null);
+
+       */
+        do{
+            var nbreArticle = prompt("veuillez saisir le nomnbre article acheter");
+        }while(nbreArticle != null && nbreArticle <=1);
+        
+        document.write("" +
+            "<form method='post' id='form'>" +
+            "<fieldset>" +
+            "<legend>" +
+            "ENREGISTREMENT COMMANDE" +
+            "</legend>" +
+            "<table>" +
+            "<tr>" +
+            "<td>" +
+            "Désignation" +
+            "</td>" +
+            "<td>" +
+            "P.U" +
+            "</td>" +
+            "<td>" +
+            "Qté" +
+            "</td>" +
+            "</tr>");
+            for (let i = 1; i <= nbreArticle; i++){
+                document.write("<tr>" +
+                    "<td>" +
+                    "<input type='text' name='designation' class='designation'>" +
+                    "</td>" +
+                    "<td>" +
+                    "<input type='number' name='pu' class='pu'>" +
+                    "</td>" +
+                    "<td>" +
+                    "<input type='number' name='qte' class='qte'>" +
+                    "</td>")
+            }
+        document.write(  "</table>" +
+            "<button type='submit' > " +
+            "Valider" +
+            "</button>" +
+            "</fieldset>" +
+            "</form>");
+      function somme (nbre){
+          var nbre1 = nbre[0];
+          for (let i = 1; i <nbre.length ; i++) {
+            nbre1 = nbre1 + nbre[i];
+          }
+          return nbre1;
+      }
+        document.getElementById('form').addEventListener('submit', function (event) {
+            event.preventDefault();
+            var puCollection = document.getElementsByClassName('pu');
+            var qteCollection = document.getElementsByClassName('qte');
+            var designationCollection = document.getElementsByClassName('designation')
+            var montantHt = [];
+            var tauxRemise;
+            var netCommercial;
+            var montantTva;
+            var montantTTC;
+
+            for (let i = 0; i < puCollection.length; i++){
+                montantHt[i]= puCollection[i].value * qteCollection[i].value;
+            }
+            var montantTotalHt = somme(montantHt);
+
+            if (montantTotalHt > 1000000 ){
+                tauxRemise = 10;
+                netCommercial = montantTotalHt - montantTotalHt * tauxRemise/100;
+                montantTva = netCommercial*18/100;
+                montantTTC = netCommercial + montantTva;
+            } else if (montantTotalHt < 1000000 && montantTotalHt > 500000 ){
+                tauxRemise = 5;
+                netCommercial = montantTotalHt - montantTotalHt * tauxRemise/100;
+                montantTva = netCommercial*18/100;
+                montantTTC = netCommercial + montantTva;
+            }else if (montantTotalHt < 500000 && montantTotalHt > 0){
+                tauxRemise = 0;
+                netCommercial = montantTotalHt;
+                montantTva = netCommercial*18/100;
+                montantTTC = netCommercial + montantTva;
+            }
+            console.log("montant HT " +montantHt);
+            console.log("Montant total ht " +montantTotalHt);
+            console.log("net commercial " +netCommercial);
+            console.log("monatant tv " + montantTva);
+            console.log("montant ttc " + montantTTC);
+            document.write("<h1> Facture</h1>" +
+                "<p>Nom Client : <p/>" +
+                "<table>" +
+                "<tr>" +
+                "<td>" +
+                "Designation" +
+                "</td>" +
+                "<td>" +
+                "PU" +
+                "</td>" +
+                "<td>" +
+                "QTE" +
+                "</td>" +
+                "<td>" +
+                "Montant HT" +
+                "</td>" +
+                "</tr>");
+            for (let i = 0; i < puCollection.length ; i++) {
+                document.write("<tr>" +
+                    "<td>" +
+                    designationCollection[i].innerHTML +
+                    "</td>" +
+                    "<td>" +
+                    puCollection[i].innerHTML +
+                    "</td>" +
+                    "<td>" +
+                    qteCollection[i].innerHTML +
+                    "</td>" +
+                    "<td>" +
+                    montantHt[i] +
+                    "</td>" +
+                    "</tr>");
+            }
+            document.write("</table>")
+        });
+
+
+    </script>
+</body>
+</html>

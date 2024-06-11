@@ -1,0 +1,18 @@
+{
+    "sourceFile": "mod.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1717837664548,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1717837664548,
+            "name": "Commit-0",
+            "content": "function populateDates() {\r\n    var select = document.getElementById('hireYear');\r\n    var startYear = 1950;\r\n    var endYear = 2024;\r\n  \r\n    for (var year = startYear; year <= endYear; year++) {  \r\n        var option = document.createElement('option');\r\n        option.value = year;\r\n        option.text = year;\r\n        select.appendChild(option);\r\n    }\r\n  }\r\n  populateDates();\r\n\r\n  document.getElementById('form').addEventListener('submit', function (event) {\r\n    event.preventDefault();\r\n\r\n    var fullName = document.getElementById('fullName');\r\n    var gender = document.querySelector('input[name=\"gender\"]:checked');\r\n    var hireYear = document.getElementById('hireYear');\r\n    var year = 2024;\r\n    var exp = year - hireYear.value;\r\n    var skills = [];\r\n    var cpte = 0;\r\n    document.querySelectorAll('input[name=\"skills\"]:checked').forEach(function (checkbox) {\r\n        skills.push(checkbox.value);\r\n        cpte = cpte + 1;\r\n    });\r\n    console.log(cpte)\r\n\r\n    var message = \"Monsieur \" + fullName.value + \"\\nGenre: \" + gender.value + \"\\nNombre d'années d'experience: \" + exp + \"Ans\\nCompétences: \" + cpte + \"\\n\" + skills.join(', ');\r\n\r\n    alert('Formulaire soumis avec succès!\\n\\n' + message);\r\n});"
+        }
+    ]
+}
